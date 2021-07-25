@@ -21,6 +21,9 @@ class PanFlareActor extends StatefulWidget {
   /// The name of the animation that has to be played while advancing
   final String openAnimation;
 
+  // Color of the asset, default - null
+  final Color color;  
+
   /// The animation that has to be played when going back from advanced position
   ///
   /// If none is supplied the open animation will be reversed
@@ -44,6 +47,7 @@ class PanFlareActor extends StatefulWidget {
       @required this.height,
       @required this.filename,
       @required this.openAnimation,
+      this.color,
       this.direction = ActorAdvancingDirection.LeftToRight,
       this.artboard,
       this.activeAreas,
@@ -83,6 +87,7 @@ class _PanFlareActorState extends State<PanFlareActor> {
       artboard: widget.artboard,
       controller: swipeController,
       activeAreas: widget.activeAreas,
+      color: widget.color,
     );
   }
 }
