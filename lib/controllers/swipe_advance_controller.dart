@@ -18,6 +18,8 @@ class SwipeAdvanceController extends FlareControls {
   double swipeThreshold;
   final bool completeOnThresholdReached;
 
+  final Function callback;
+
   _AnimationOrigin _currentAnimationOrigin = _AnimationOrigin.Beginning;
 
   ActorAnimation _openAnimation;
@@ -37,6 +39,7 @@ class SwipeAdvanceController extends FlareControls {
       @required String openAnimationName,
       @required String closeAnimationName,
       @required ActorAdvancingDirection direction,
+      this.callback,
       this.completeOnThresholdReached,
       this.reverseOnRelease,
       this.uniDirectional,
@@ -54,6 +57,11 @@ class SwipeAdvanceController extends FlareControls {
       _openAnimation.duration * _openAnimationPosition;
   double get _closeAnimationTimeToApply =>
       _closeAnimation.duration * _closeAnimationPosition;
+
+  @override
+  void setCallback(Function callback) {
+    callback = callback;
+  }
 
   @override
   void initialize(FlutterActorArtboard artboard) {
@@ -238,6 +246,7 @@ class SwipeAdvanceController extends FlareControls {
           if (!uniDirectional) _currentAnimationOrigin = _AnimationOrigin.End;
           // We also want to set the delta interaction equal to the pagewidth
           _deltaXSinceInteraction = _playCloseAnimation ? 0 : width;
+          callback("active");
         } else {
           // If we're coming from the end, We want to indicate that we are now at the beginning of the animation.
           _currentAnimationOrigin = _AnimationOrigin.Beginning;
@@ -267,6 +276,7 @@ class SwipeAdvanceController extends FlareControls {
 
         animationAtEnd = true;
         _thresholdReached = false;
+        callback("inactive");
         // print(
         //     'CLOSING Animation@end FORWARD: _currentAnimationOrigin: $_currentAnimationOrigin, _deltaXSinceInteraction: $_deltaXSinceInteraction');
       }
