@@ -14,6 +14,7 @@ class SwipeAdvanceController extends FlareControls {
   final String _closeAnimationName;
   ActorAdvancingDirection _direction;
   final bool reverseOnRelease;
+  final bool uniDirectional;
   double swipeThreshold;
   final bool completeOnThresholdReached;
 
@@ -38,6 +39,7 @@ class SwipeAdvanceController extends FlareControls {
       @required ActorAdvancingDirection direction,
       this.completeOnThresholdReached,
       this.reverseOnRelease,
+      this.uniDirectional,
       this.swipeThreshold})
       : _openAnimationName = openAnimationName,
         _closeAnimationName = closeAnimationName,
@@ -233,7 +235,7 @@ class SwipeAdvanceController extends FlareControls {
         // If we are advancing towards the end of the animtion and we're coming from beginning
         if (_currentAnimationOrigin == _AnimationOrigin.Beginning) {
           // We want to indicate that we are now at the end of the animation.
-          _currentAnimationOrigin = _AnimationOrigin.End;
+          if (!uniDirectional) _currentAnimationOrigin = _AnimationOrigin.End;
           // We also want to set the delta interaction equal to the pagewidth
           _deltaXSinceInteraction = _playCloseAnimation ? 0 : width;
         } else {

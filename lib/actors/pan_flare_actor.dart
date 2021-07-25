@@ -34,6 +34,8 @@ class PanFlareActor extends StatefulWidget {
   /// When true the animation will reverse on the release of the gesture if threshold is not reached.
   final bool reverseOnRelease;
 
+  final bool uniDirectional;
+
   /// When true the animation will play to completion as soon as the threshold is reached
   final bool completeOnThresholdReached;
 
@@ -49,6 +51,7 @@ class PanFlareActor extends StatefulWidget {
       this.activeAreas,
       this.closeAnimation,
       this.threshold,
+      this.uniDirectional,
       this.completeOnThresholdReached = false,
       this.reverseOnRelease = true});
 
@@ -69,6 +72,7 @@ class _PanFlareActorState extends State<PanFlareActor> {
           reverseOnRelease: widget.reverseOnRelease,
           swipeThreshold: widget.threshold,
           closeAnimationName: widget.closeAnimation,
+          uniDirectional: widget.uniDirectional,
           completeOnThresholdReached: widget.completeOnThresholdReached);
     }
     super.initState();
